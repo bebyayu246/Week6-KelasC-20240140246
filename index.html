@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Produk & Form Interaktif | PAW Week 6</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast hidden" role="alert">
+    <div class="toast-icon" id="toastIcon"><i class="fa-solid fa-circle-check"></i></div>
+    <div class="toast-content">
+      <h4 id="toastTitle">Berhasil</h4>
+      <p id="toastMessage">Pesan notifikasi</p>
+    </div>
+    <button class="toast-close" id="toastCloseBtn" aria-label="Tutup notifikasi">&times;</button>
+  </div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-shop"></i>
+        </div>
+        <div class="brand-text">
+          <h1>TokoKita <span>Catalog</span></h1>
+          <p class="subtitle">20240140246 - Beby Ayu Verananda</p>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#formSection" class="btn btn-outline"><i class="fa-solid fa-plus"></i> Tambah Produk</a>
+        <a href="#catalogSection" class="btn btn-primary"><i class="fa-solid fa-layer-group"></i> Lihat Katalog</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    
+    <!-- Hero / Intro Banner -->
+    <section class="hero-banner">
+      <div class="hero-badge">
+        <i class="fa-solid fa-code"></i> Tugas Pemrograman Aplikasi Web (Week 6)
+      </div>
+      <h2>Eksplorasi Produk & Manajemen Data Interaktif</h2>
+    </section>
+
+    <!-- SECTION 1: FORM DOM & EVENT HANDLING -->
+    <section id="formSection" class="section-card form-section">
+      <div class="section-header">
+        <div class="header-icon form-icon">
+          <i class="fa-solid fa-file-pen"></i>
+        </div>
+        <div>
+          <h3>Fitur 2: Form &amp; Event Handling</h3>
+          <p>Tambahkan produk baru ke dalam daftar dengan validasi input interaktif dan manipulasi DOM realtime.</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <!-- Form Element -->
+        <form id="productForm" class="product-form" novalidate>
+          
+          <!-- Input Nama Produk -->
+          <div class="form-group" id="groupTitle">
+            <label for="productTitle">Nama Produk <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-tag input-icon"></i>
+              <input 
+                type="text" 
+                id="productTitle" 
+                name="title" 
+                placeholder="Contoh: Wireless Mechanical Keyboard"
+                autocomplete="off"
+              >
+            </div>
+            <small class="error-msg" id="errorTitle"></small>
+            <small class="helper-text">Minimal 3 karakter</small>
+          </div>
+
+          <!-- Grid 2 Kolom: Kategori & Harga -->
+          <div class="form-row">
+            <!-- Kategori -->
+            <div class="form-group" id="groupCategory">
+              <label for="productCategory">Kategori <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-list input-icon"></i>
+                <select id="productCategory" name="category">
+                  <option value="">-- Pilih Kategori --</option>
+                  <option value="beauty">Beauty & Care</option>
+                  <option value="fragrances">Fragrances</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="groceries">Groceries</option>
+                  <option value="electronics">Electronics & Gadget</option>
+                  <option value="accessories">Fashion & Accessories</option>
+                </select>
+              </div>
+              <small class="error-msg" id="errorCategory"></small>
+            </div>
+
+            <!-- Harga -->
+            <div class="form-group" id="groupPrice">
+              <label for="productPrice">Harga (USD $) <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-dollar-sign input-icon"></i>
+                <input 
+                  type="number" 
+                  id="productPrice" 
+                  name="price" 
+                  placeholder="Contoh: 49.99"
+                  step="0.01"
+                  min="0.01"
+                >
+              </div>
+              <small class="error-msg" id="errorPrice"></small>
+            </div>
+          </div>
+
+          <!-- URL Gambar (Opsional) -->
+          <div class="form-group" id="groupImage">
+            <label for="productImage">URL Gambar Produk (Opsional)</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-image input-icon"></i>
+              <input 
+                type="url" 
+                id="productImage" 
+                name="image" 
+                placeholder="https://example.com/foto-produk.jpg"
+              >
+            </div>
+            <small class="error-msg" id="errorImage"></small>
+            <small class="helper-text">Biarkan kosong untuk memakai gambar default</small>
+          </div>
+
+          <!-- Deskripsi Produk -->
+          <div class="form-group" id="groupDescription">
+            <label for="productDescription">Deskripsi Produk <span class="required">*</span></label>
+            <div class="input-wrapper textarea-wrapper">
+              <textarea 
+                id="productDescription" 
+                name="description" 
+                rows="3" 
+                placeholder="Tuliskan spesifikasi atau deskripsi singkat produk..."
+              ></textarea>
+            </div>
+            <div class="textarea-footer">
+              <small class="error-msg" id="errorDescription"></small>
+              <small class="char-counter" id="charCounter">0 / 200 karakter</small>
+            </div>
+          </div>
+
+          <!-- Form Action Buttons -->
+          <div class="form-actions">
+            <button type="submit" id="btnSubmit" class="btn btn-primary btn-submit">
+              <i class="fa-solid fa-paper-plane"></i> Tambah Produk
+            </button>
+            <button type="button" id="btnReset" class="btn btn-secondary">
+              <i class="fa-solid fa-rotate-left"></i> Reset Form
+            </button>
+          </div>
+        </form>
+
+        <!-- Dynamic Output / Preview Box -->
+        <div class="preview-panel">
+          <div class="preview-header">
+            <h4><i class="fa-solid fa-eye"></i> Live Feedback &amp; Hasil Form</h4>
+            <span class="badge badge-info" id="statusBadge">Menunggu Input</span>
+          </div>
+          
+          <div class="preview-body" id="previewContainer">
+            <div class="empty-state" id="emptyFeedback">
+              <div class="empty-icon"><i class="fa-regular fa-clipboard"></i></div>
+              <p>Isi formulir di sebelah kiri untuk melihat umpan balik langsung (real-time DOM update) dan produk yang baru saja Anda tambahkan.</p>
+            </div>
+
+            <!-- Kartu feedback hasil submit (awalnya hidden) -->
+            <div class="submitted-result hidden" id="submittedResult">
+              <div class="result-badge"><i class="fa-solid fa-circle-check"></i> Produk Berhasil Dibuat!</div>
+              <div class="result-card">
+                <div class="result-img-wrapper">
+                  <img id="resImg" src="" alt="Thumbnail Produk">
+                </div>
+                <div class="result-info">
+                  <span class="badge badge-category" id="resCategory">Kategori</span>
+                  <h4 id="resTitle">Nama Produk</h4>
+                  <div class="result-price" id="resPrice">$0.00</div>
+                  <p id="resDesc">Deskripsi produk...</p>
+                  <small class="result-timestamp" id="resTime"><i class="fa-regular fa-clock"></i> Baru saja</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: FETCH API — DATA PRODUK -->
+    <section id="catalogSection" class="section-card catalog-section">
+      <div class="section-header catalog-header-wrapper">
+        <div class="header-left">
+          <div class="header-icon api-icon">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+          </div>
+          <div>
+            <h3>Fitur 1: Fetch API — Data Produk</h3>
+            <p>Data diambil secara asynchronous dari <a href="https://dummyjson.com/products" target="_blank" rel="noopener noreferrer">https://dummyjson.com/products</a>.</p>
+          </div>
+        </div>
+        
+        <!-- Controls: Refresh, Search, & Count -->
+        <div class="header-controls">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Cari nama atau kategori..." autocomplete="off">
+            <button id="clearSearchBtn" class="clear-btn hidden" title="Hapus pencarian">&times;</button>
+          </div>
+          <button id="btnReload" class="btn btn-outline" title="Muat ulang data dari API">
+            <i class="fa-solid fa-arrows-rotate"></i> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- Status Bar (Jumlah data & info) -->
+      <div class="catalog-status-bar">
+        <span id="productCounterText">Menampilkan <strong>0</strong> produk</span>
+        <span class="api-status-tag" id="apiStatusTag"><i class="fa-solid fa-circle-dot"></i> Siap</span>
+      </div>
+
+      <!-- State: Loading Spinner -->
+      <div id="loadingState" class="state-container loading-container hidden">
+        <div class="spinner"></div>
+        <p class="state-title">Sedang Mengambil Data Produk...</p>
+        <p class="state-subtitle">Menghubungi endpoint DummyJSON dengan Fetch API</p>
+      </div>
+
+      <!-- State: Error Box -->
+      <div id="errorState" class="state-container error-container hidden">
+        <div class="state-icon error-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <h4 class="state-title">Gagal Memuat Data Produk</h4>
+        <p id="errorMessage" class="state-subtitle">Terjadi kendala saat menghubungi server API.</p>
+        <button id="btnRetry" class="btn btn-danger">
+          <i class="fa-solid fa-rotate-right"></i> Coba Lagi
+        </button>
+      </div>
+
+      <!-- State: Empty Search / Empty Data -->
+      <div id="emptyState" class="state-container empty-container hidden">
+        <div class="state-icon"><i class="fa-solid fa-box-open"></i></div>
+        <h4 class="state-title">Tidak Ada Produk Ditemukan</h4>
+        <p class="state-subtitle">Coba kata kunci pencarian yang lain.</p>
+      </div>
+
+      <!-- Grid Produk (Container hasil render DOM) -->
+      <div id="productGrid" class="product-grid"></div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 Pemrograman Aplikasi Web (PAW) &bull; Tugas Pertemuan 6</p>
+      <p>20240140246 - Beby Ayu Verananda</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
